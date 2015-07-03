@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var header="<div>i am header</div>";
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.redirect("./index.html");
@@ -8,7 +10,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/index.html', function(req, res, next) {
     //res.send("hello index")
-    res.render('index' , { title: '太极家园' }
+    res.render('index' , { title: '太极家园', html_header:header
+    }
     );
 });
 
