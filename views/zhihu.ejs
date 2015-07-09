@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="../../favicon.ico">
+<title><%= title %></title>
+<!-- Bootstrap core CSS -->
+<link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+.container-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+}
+
+.container{
+  width:960px;
+  margin:30px auto;
+}
+
+.pannel{
+    border:1px solid #ddd;
+    border-radius:4px;
+    padding:12px;
+}
+.invite-remove{
+    float:right;
+    border-radius:5px;
+    border:1px solid #07070D;
+    background:#07070D;
+    color:white;
+    font-weight:700;
+    padding:3px 6px 
+}
+
+</style>
+</head>
+<body>
+<div class="container-wrapper">
+    <div class="container">
+        <div class="pannel">
+            <div class="search-bar"></div>
+            <ul class="recomends">
+                <li><a href="#" style="border-radius:4px"><img src="images/zhihu/user_avatar_4.png"/></a>
+                    <div class="recomends-detail">
+                        <button class="invite-remove">收回邀请</button>
+                        <a href="#">周源</a>
+
+                    </div></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+<% include footer.ejs %>

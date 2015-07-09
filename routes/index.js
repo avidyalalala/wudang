@@ -15,6 +15,15 @@ router.get('/index.html', function(req, res, next) {
     );
 });
 
+router.get('/zhihu.html', function(req, res, next) {
+    //res.send("hello index")
+    res.render('zhihu' , { title: '知乎面试题', html_header:header
+    }
+    );
+});
+
+
+
 var ccap=require('ccap');
 var captcha = ccap();
 
