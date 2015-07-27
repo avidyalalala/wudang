@@ -1,41 +1,47 @@
-var express = require('express');
-var router = express.Router();
+/**
+ * This file is where you define your application routes and controllers.
+ * 
+ * Start by including the middleware you want to run for every request;
+ * you can attach middleware to the pre('routes') and pre('render') events.
+ * 
+ * For simplicity, the default setup for route controllers is for each to be
+ * in its own file, and we import all the files in the /routes/views directory.
+ * 
+ * Each of these files is a route controller, and is responsible for all the
+ * processing that needs to happen for the route (e.g. loading data, handling
+ * form submissions, rendering the view template, etc).
+ * 
+ * Bind each route pattern your application should respond to in the function
+ * that is exported from this module, following the examples below.
+ * 
+ * See the Express application routing documentation for more information:
+ * http://expressjs.com/api.html#app.VERB
+ */
 
-var header="<div>i am header</div>";
+var keystone = require('keystone');
+var middleware = require('./middleware');
+var importRoutes = keystone.importer(__dirname);
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.redirect("./index.html");
-});
+// Common Middleware
+keystone.pre('routes', middleware.initLocals);
+keystone.pre('render', middleware.flashMessages);
 
-router.get('/index.html', function(req, res, next) {
-    //res.send("hello index")
-    res.render('index' , { title: '太极家园', html_header:header
-    }
-    );
-});
+// Import Route Controllers
+var routes = {
+	views: importRoutes('./views')
+};
 
-router.get('/zhihu.html', function(req, res, next) {
-    //res.send("hello index")
-    res.render('zhihu' , { title: '知乎面试题', html_header:header
-    }
-    );
-});
-
-
-
-var ccap=require('ccap');
-var captcha = ccap();
-
-router.get('/captcha', function(req, res, next) {
-    //res.send("hello index")
-    var ary=captcha.get();
-    var txt=ary[0];
-    console.log(txt);
-    var buf=ary[1];
-
-    res.end(buf);
-});
-
-
-module.exports = router;
+// Setup Route Bindings
+exports = module.exports = function(app) {
+	
+	// Views
+	app.get('/', routes.views.index);
+	app.get('/blog/:category?', routes.views.blog);
+	app.get('/blog/post/:post', routes.views.post);
+	app.get('/gallery', routes.views.gallery);
+	app.all('/contact', routes.views.contact);
+	
+	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
+	// app.get('/protected', middleware.requireUser, routes.views.protected);
+	
+};
