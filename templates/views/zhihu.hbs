@@ -1,0 +1,159 @@
+<style>
+.clearfix:after {
+  clear: both;
+  }
+.pdlr2em{
+    padding-left:2em;
+    padding-right:2em
+}
+
+.container{
+  width:960px;
+  margin:0px auto;
+}
+
+.pannel{
+    border:1px solid #ddd;
+    border-radius:4px;
+    padding:12px;
+}
+.search-bar{
+}
+
+.search-bar input{
+    border:1px solid #ddd;
+    border-radius:4px;
+    padding:4px 10px;
+    color:#ddd;
+}
+
+.recomends .invite, .recomends .invite-remove{
+    background:#1D4BC3;
+    border:1px solid #1D4BC3;
+    float:right;
+    border-radius:3px;
+    color:white;
+    font-weight:700;
+    padding:3px 6px
+}
+
+.recomends .invite-remove{
+    background:#07070D!important;
+    border:1px solid #07070D;
+}
+.recomends .potrait{
+    float:left
+}
+.recomends .potrait img{
+    border-radius:4px
+}
+
+.recomends{
+    list-style: none;
+    padding:0;
+}
+
+.recomends li{
+    float:left;
+    width:50%;
+    padding:10px 0 15px 0
+}
+.recomends-detail{
+    padding: 0 10px 0 45px;
+    margin:0 10px 0 0;
+}
+
+</style>
+
+<div class="container-wrapper">
+    <div class="container">
+        <div class="pannel">
+            <div class="search-bar">
+                <input value="搜索你想邀请的人"></input>
+                <span class="pdlr2em" >您已邀请 <a href="#">周源</a>、<a href="#">黄继新</a> 等5人</span>
+            </div>
+            <ul class="recomends clearfix">
+                <li><a href="#" class="potrait"><img src="images/zhihu/user_avatar_4.png"/></a>
+                    <div class="recomends-detail">
+                        <button class="invite invite-remove" value="0">收回邀请</button>
+                        <a href="#">周源</a>
+                        <p>知乎 001 号员工</p>
+                    </div></li>
+
+                 <li><a href="#" class="potrait"><img src="images/zhihu/user_avatar_5.png"/></a>
+                    <div class="recomends-detail">
+                        <button class="invite invite-remove" value="0">收回邀请</button>
+                        <a href="#">黄继新</a>
+                        <p>和 知乎 在一起 </p>
+                    </div></li>
+
+                 <li><a href="#" class="potrait"><img src="images/zhihu/user_avatar_6.png"/></a>
+                    <div class="recomends-detail">
+                        <button class="invite" value="1">邀请回答</button>
+                        <a href="#">李申申</a>
+                        <p>知乎 002 号员工</p>
+                    </div></li>
+                <li><a href="#" class="potrait"><img src="images/zhihu/user_avatar_7.png"/></a>
+                    <div class="recomends-detail">
+                        <button class="invite"  value="1">邀请回答</button>
+                        <a href="#">Raymond Wong</a>
+                        <p> laywer</p>
+
+                    </div></li>
+
+            </ul>
+        </div>
+    </div>
+<script>
+$(document).ready(function(){
+        $(".invite").click(
+function(){
+    _button=$(this);
+    _type=$(this).val();
+    $.ajax({
+      method: "GET",
+      url: "invite.json?type="+_type,
+      data: {uid:"lina"},
+      sucess:function(msg){
+        _json=$.parseJSON(msg); }
+    }).done(function(msg) {
+         console.log(msg);
+         _json=$.parseJSON(msg);
+         if(0==_json.status){
+            if(0==_type){
+                _button.removeClass('invite-remove');
+                _button.text("邀请回答")
+                _button.val(1);
+            }else{
+                _button.addClass('invite-remove')
+                _button.text("收回邀请")
+                _button.val(0);
+            }
+        }
+    });
+
+    })
+})
+
+</script>
+
+ <div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+			<article>
+				<p><a href="/blog">&larr; back to the blog</a></p>
+				<hr>
+				<header>
+					<h1>{{data.post.title}}</h1>
+					<h5>
+						{{{categoryList data.post.categories prefix="Posted in "}}}
+						{{#if author.name.first}}by {{author.name.first}}{{/if}}
+					</h5>
+				</header>
+				<div class="post">
+					{{{data.post.content.extended}}}
+				</div>
+			</article>
+		</div>
+	</div>
+</div>
