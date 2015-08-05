@@ -1,0 +1,33 @@
+<script>
+$(document).ready(function(){
+        $(".invite").click(
+function(){
+    _button=$(this);
+    _type=$(this).val();
+    $.ajax({
+      method: "GET",
+      url: "invite.json?type="+_type,
+      data: {uid:"lina"},
+      sucess:function(msg){
+        _json=$.parseJSON(msg); }
+    }).done(function(msg) {
+         console.log(msg);
+         _json=$.parseJSON(msg);
+         if(0==_json.status){
+            if(0==_type){
+                _button.removeClass("invite-remove");
+                _button.text("邀请回答")
+                _button.val(1);
+            }else{
+                _button.addClass("invite-remove")
+                _button.text("收回邀请")
+                _button.val(0);
+            }
+        }
+    });
+
+    })
+})
+
+</script>
+
