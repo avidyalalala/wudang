@@ -1,5 +1,13 @@
 var keystone = require('keystone');
 
+/*
+        //customerScript by Lina 20150731 night
+        _helpers.customerScript = function(script) {
+            if(script==""|| script==undefined||script==null||script=={}){
+                return "";}
+            return ""; 
+        } 
+*/
 exports = module.exports = function(req, res) {
 	
 	var view = new keystone.View(req, res);
@@ -13,6 +21,8 @@ exports = module.exports = function(req, res) {
 	locals.data = {
 		posts: []
 	};
+        locals.isZhihu=true;
+
 	
 	// Load the current post
 	view.on('init', function(next) {
@@ -43,5 +53,8 @@ exports = module.exports = function(req, res) {
 	
 	// Render the view
 	view.render('zhihu');
+        
+        //Render the view with other layout
+	//view.render('zhihu',{layout:'blank'});
 	
 };

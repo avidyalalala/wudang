@@ -104,8 +104,8 @@ keystone.set('nav', {
 });
 
 // heap-dump
-var heapdump = require('heapdump');
-heapdump.writeSnapshot('/root/' + Date.now() + '.heapsnapshot');
+//var heapdump = require('heapdump');
+//heapdump.writeSnapshot('/root/' + Date.now() + '.heapsnapshot');
 
 
 // Start Keystone to connect to your database and initialise the web server
