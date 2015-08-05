@@ -333,6 +333,7 @@ module.exports = function() {
 		}
 		return new hbs.SafeString(output);
 	};
+        
 	
 	return _helpers;
 };
